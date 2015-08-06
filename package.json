@@ -1,0 +1,25 @@
+{
+  "name": "gulp-sass-glob",
+  "version": "0.0.1",
+  "description": "Gulp task to use glob imports in your sass/scss files.",
+  "main": "index.js",
+  "dependencies": {
+    "glob": "^5.0.14",
+    "through2": "^2.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://mike-frontmen@github.com/mike-frontmen/gulp-sass-glob.git"
+  },
+  "keywords": [
+    "gulp",
+    "sass",
+    "glob"
+  ],
+  "author": "Mike Vercoelen <mike.vercoelen@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mike-frontmen/gulp-sass-glob/issues"
+  },
+  "homepage": "https://github.com/mike-frontmen/gulp-sass-glob#readme"
+}
