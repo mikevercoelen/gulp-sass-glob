@@ -21,6 +21,8 @@ function gulpSassGlobbing () {
     }
 
     if (filename.substr(-4).match(/sass|scss/i)) {
+      filename = filename.replace(/\\/g, '/');
+
       return '@import "' + filename + '";\n'
     }
 
