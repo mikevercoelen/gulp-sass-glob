@@ -32,7 +32,7 @@ function gulpSassGlobbing () {
   function transform (file, env, callback) {
     var contents = file.contents.toString('utf-8');
 
-    var reg = /@import\s+\"([^\"]*\*[^\"]*)\"/;
+    var reg = /@import\s+[\"']([^\"']*\*[^\"']*)[\"']/;
     var result;
 
     while((result = reg.exec(contents)) !== null) {
