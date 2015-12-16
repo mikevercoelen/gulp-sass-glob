@@ -37,4 +37,5 @@ gulp.task('styles', function () {
 
 # Thanks and love
 - [Parhumm](https://github.com/parhumm) for fixing windows bug in import files
-- [Mjezzi] (https://github.com/mjezzi) for fixing single quotes bug
+- [Mjezzi](https://github.com/mjezzi) for fixing single quotes bug
+- [Daviestar](https://github.com/daviestar) for fixing re-including main file bug, recursion bug, sass-not-scss bug
