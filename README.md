@@ -13,10 +13,11 @@ npm install gulp-sass-glob --save-dev
 main.scss
 
 ```scss
-@import "vars/*";
-@import "mixins/*";
-@import "../views/*";
-@import "../components/*";
+@import "vars/**/*.scss";
+@import "mixins/**/*.scss";
+@import "generic/**/*.scss";
+@import "../components/**/*.scss";
+@import "../views/**/*.scss";
 ```
 
 gulpfile.js
