@@ -27,7 +27,7 @@ var sass = require('gulp-sass');
 var sassGlob = require('gulp-sass-glob');
 
 gulp.task('styles', function () {
-    gulp
+    return gulp
         .src('src/styles/main.scss')
         .pipe(sassGlob())
         .pipe(sass())
