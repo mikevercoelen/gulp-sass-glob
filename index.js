@@ -4,32 +4,19 @@ var through = require('through2');
 var glob = require('glob');
 
 function gulpSassGlobbing () {
-  function process (filename) {
-    var replaceString = '';
-
-    if (fs.statSync(filename).isDirectory()) {
-      // Ignore directories start with _
-      if (path.basename(filename).substring(0, 1) == '_') {
-        return '';
-      }
-
-      fs.readdirSync(filename).forEach(function (file) {
-        replaceString += process(filename + path.sep + file);
-      });
-
-      return replaceString;
+  function process (filename, isSass) {
+    if(fs.statSync(filename).isDirectory() || !path.extname(filename).match(/\.sass|\.scss/i)) {
+      return '';
     }
 
-    if (filename.substr(-4).match(/sass|scss/i)) {
-      return '@import "' + filename + '";\n'
-    }
-
-    return '';
+    return '@import "' + filename + '"' + (isSass ? '' : ';') + '\n'
   }
 
   function transform (file, env, callback) {
     var contents = file.contents.toString('utf-8');
     var reg = /@import\s+[\"']([^\"']*\*[^\"']*)[\"']/;
+    var isSass = path.extname(file.path) === '.sass';
+
     var result;
 
     while((result = reg.exec(contents)) !== null) {
@@ -41,7 +28,9 @@ function gulpSassGlobbing () {
       var replaceString = '';
 
       files.forEach(function (filename) {
-        replaceString += process(filename);
+        if(filename !== file.path) {
+          replaceString += process(filename, isSass);
+        }
       });
 
       contents = contents.replace(sub, replaceString);
