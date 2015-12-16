@@ -34,3 +34,7 @@ gulp.task('styles', function () {
         .pipe(gulp.dest('dist/styles'));
 });
 ```
+
+# Thanks and love
+- [Parhumm](https://github.com/parhumm) for fixing windows bug in import files
+- [Mjezzi] (https://github.com/mjezzi) for fixing single quotes bug
