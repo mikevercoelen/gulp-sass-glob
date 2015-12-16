@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://mike-frontmen@github.com/mike-frontmen/gulp-sass-glob.git"
+    "url": "git+https://tomgrooffer@github.com/tomgrooffer/gulp-sass-glob.git"
   },
   "keywords": [
     "gulp",
@@ -17,9 +17,9 @@
     "glob"
   ],
   "author": "Mike Vercoelen <mike.vercoelen@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mike-frontmen/gulp-sass-glob/issues"
+    "url": "https://github.com/tomgrooffer/gulp-sass-glob/issues"
   },
-  "homepage": "https://github.com/mike-frontmen/gulp-sass-glob#readme"
+  "homepage": "https://github.com/tomgrooffer/gulp-sass-glob#readme"
 }
