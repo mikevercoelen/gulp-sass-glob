@@ -8,6 +8,8 @@ function gulpSassGlobbing () {
     if(fs.statSync(filename).isDirectory() || !path.extname(filename).match(/\.sass|\.scss/i)) {
       return '';
     }
+    
+    filename = filename.replace(/\\/g, '/');
 
     return '@import "' + filename + '"' + (isSass ? '' : ';') + '\n'
   }
