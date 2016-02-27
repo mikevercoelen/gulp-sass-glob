@@ -20,6 +20,8 @@ main.scss
 @import "../views/**/*.scss";
 ```
 
+*NOTE*: Also support using `'` (single quotes) for example: `@import 'vars/**/*.scss';`
+
 gulpfile.js
 
 ```javascript
@@ -37,6 +39,7 @@ gulp.task('styles', function () {
 ```
 
 # Thanks and love
+- [gulp-sass-glob-import](https://github.com/bleuarg/gulp-sass-glob-import) for inspiration for unit tests etc.
 - [Parhumm](https://github.com/parhumm) for fixing windows bug in import files
 - [Mjezzi](https://github.com/mjezzi) for fixing single quotes bug
 - [Daviestar](https://github.com/daviestar) for fixing re-including main file bug, recursion bug, sass-not-scss bug
