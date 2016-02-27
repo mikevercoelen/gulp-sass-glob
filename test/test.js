@@ -2,7 +2,6 @@ import path from 'path'
 import expect from 'expect.js'
 import vinyl from 'vinyl-fs'
 import sassGlob from '../src'
-// import gulpSass from 'gulp-sass'
 
 describe('gulp-sass-glob', () => {
   it('(scss) should parse a single directory AND support single and double quotes @import usage', (done) => {
@@ -20,9 +19,7 @@ describe('gulp-sass-glob', () => {
         const contents = file.contents.toString('utf-8').trim()
         expect(contents).to.equal(expectedResult.trim())
       })
-      .on('end', () => {
-        done()
-      })
+      .on('end', done)
   })
 
   it('(sass) should parse a single directory', (done) => {
@@ -38,9 +35,7 @@ describe('gulp-sass-glob', () => {
         const contents = file.contents.toString('utf-8').trim()
         expect(contents).to.equal(expectedResult.trim())
       })
-      .on('end', () => {
-        done()
-      })
+      .on('end', done)
   })
 
   it('(scss) should parse a directory recursively', (done) => {
@@ -57,9 +52,7 @@ describe('gulp-sass-glob', () => {
         const contents = file.contents.toString('utf-8').trim()
         expect(contents).to.equal(expectedResult.trim())
       })
-      .on('end', () => {
-        done()
-      })
+      .on('end', done)
   })
 
   it('(scss) should find multiple imports', (done) => {
@@ -78,8 +71,6 @@ describe('gulp-sass-glob', () => {
         const contents = file.contents.toString('utf-8').trim()
         expect(contents).to.equal(expectedResult.trim())
       })
-      .on('end', () => {
-        done()
-      })
+      .on('end', done)
   })
 })
