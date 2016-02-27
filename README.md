@@ -1,7 +1,9 @@
-# gulp-sass-glob
+[![Package Quality](http://npm.packagequality.com/badge/gulp-sass-glob.png)](http://packagequality.com/#?package=gulp-sass-glob)
 
 [![Package Quality](http://npm.packagequality.com/shield/gulp-sass-glob.svg)](http://packagequality.com/#?package=gulp-sass-glob)
-[![Package Quality](http://npm.packagequality.com/badge/gulp-sass-glob.png)](http://packagequality.com/#?package=gulp-sass-glob)
+
+# gulp-sass-glob
+
 [Gulp](http://gulpjs.com/) plugin for [gulp-sass](https://github.com/dlmanning/gulp-sass) to use glob imports.
 
 # Install
