@@ -5,7 +5,7 @@ import sassGlob from '../src'
 // import gulpSass from 'gulp-sass'
 
 describe('gulp-sass-glob', () => {
-  it('(scss) should parse a single directory and support single and double quotes @import usage', (done) => {
+  it('(scss) should parse a single directory AND support single and double quotes @import usage', (done) => {
     const expectedResult = [
       '@import "import/_f1.scss";',
       '@import "import/_f2.scss";',
@@ -52,6 +52,27 @@ describe('gulp-sass-glob', () => {
 
     vinyl
       .src(path.join(__dirname, '/test-scss/recursive.scss'))
+      .pipe(sassGlob())
+      .on('data', (file) => {
+        const contents = file.contents.toString('utf-8').trim()
+        expect(contents).to.equal(expectedResult.trim())
+      })
+      .on('end', () => {
+        done()
+      })
+  })
+
+  it('(scss) should find multiple imports', (done) => {
+    const expectedResult = [
+      '@import "recursive/_f1.scss";',
+      '@import "recursive/_f2.scss";',
+      '@import "recursive/nested/_f3.scss";',
+      '@import "import/_f1.scss";',
+      '@import "import/_f2.scss";'
+    ].join('\n')
+
+    vinyl
+      .src(path.join(__dirname, '/test-scss/multiple.scss'))
       .pipe(sassGlob())
       .on('data', (file) => {
         const contents = file.contents.toString('utf-8').trim()
