@@ -11,7 +11,7 @@ export default function gulpSassGlob () {
 function transform (file, env, callback) {
   const reg = /@import\s+["']([^"']+\*(\.scss|\.sass)?)["'];?/
   const isSass = path.extname(file.path) === '.sass'
-  const base = path.join(path.normalize(file.base), '/')
+  const base = path.normalize(path.join(path.dirname(file.path), '/'))
 
   let contents = file.contents.toString('utf-8')
 
@@ -21,8 +21,8 @@ function transform (file, env, callback) {
     const importRule = result[0]
     const globPattern = result[1]
 
-    const files = glob.sync(path.join(file.base, globPattern), {
-      cwd: file.base
+    const files = glob.sync(path.join(base, globPattern), {
+      cwd: base
     })
 
     let imports = []
