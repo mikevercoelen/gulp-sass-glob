@@ -43,6 +43,7 @@ gulp.task('styles', function () {
 ```
 
 # Thanks and love
+- [ViliamKopecky](https://github.com/ViliamKopecky) for fixing base path
 - [gulp-sass-glob-import](https://github.com/bleuarg/gulp-sass-glob-import) for inspiration for unit tests etc.
 - [Parhumm](https://github.com/parhumm) for fixing windows bug in import files
 - [Mjezzi](https://github.com/mjezzi) for fixing single quotes bug
