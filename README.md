@@ -42,6 +42,33 @@ gulp.task('styles', function () {
 });
 ```
 
+# Troubleshooting
+
+## Nested glob imports
+
+`gulp-sass-glob` currently does NOT support nested glob imports i.e.
+
+main.scss
+```scss
+@import 'blocks/**/*.scss';
+```
+
+blocks/index.scss
+```scss
+@import 'other/blocks/**/*.scss';
+```
+
+This will throw an error, because `gulp-sass-glob` does NOT read nested import structures.
+
+### Solving nested glob imports
+
+You have to think diffrent about your `sass` folder structure, what I suggest to do is:
+
+* Point your gulp styles task ONLY to `main.scss`
+* In `main.scss` -> ONLY in this file I use glob imports
+
+Problem solved.
+
 # Thanks and love
 - [ViliamKopecky](https://github.com/ViliamKopecky) for fixing base path
 - [gulp-sass-glob-import](https://github.com/bleuarg/gulp-sass-glob-import) for inspiration for unit tests etc.

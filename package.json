@@ -1,6 +1,6 @@
 {
   "name": "gulp-sass-glob",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Gulp task to use glob imports in your sass/scss files.",
   "repository": {
     "type": "git",
