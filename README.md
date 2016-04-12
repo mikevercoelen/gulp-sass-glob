@@ -48,3 +48,5 @@ gulp.task('styles', function () {
 - [Parhumm](https://github.com/parhumm) for fixing windows bug in import files
 - [Mjezzi](https://github.com/mjezzi) for fixing single quotes bug
 - [Daviestar](https://github.com/daviestar) for fixing re-including main file bug, recursion bug, sass-not-scss bug
+- [Nirazul](https://github.com/Nirazul) for reporting the comment glob bug
+- [CREEATION](https://github.com/CREEATION) for submitting a regex for comment globs
