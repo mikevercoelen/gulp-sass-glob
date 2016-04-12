@@ -73,4 +73,15 @@ describe('gulp-sass-glob', () => {
       })
       .on('end', done)
   })
+
+  it('(scss) should ignore commented globs', (done) => {
+    vinyl
+      .src(path.join(__dirname, '/test-scss/ignore-comments.scss'))
+      .pipe(sassGlob())
+      .on('data', (file) => {
+        const contents = file.contents.toString('utf-8').trim()
+        expect(contents).to.equal(contents)
+      })
+      .on('end', done)
+  })
 })
