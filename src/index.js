@@ -9,7 +9,7 @@ export default function gulpSassGlob () {
 }
 
 function transform (file, env, callback) {
-  const reg = /^\s*@import\s+["']([^"']+\*(\.scss|\.sass)?)["'];?$/gm
+  const reg = /^\s*@import\s+["']([^"']+\*[^"']*(\.scss|\.sass)?)["'];?$/gm
   const isSass = path.extname(file.path) === '.sass'
   const base = path.normalize(path.join(path.dirname(file.path), '/'))
 
