@@ -38,6 +38,11 @@ function transform (file, env, callback) {
     const replaceString = imports.join('\n')
     contents = contents.replace(importRule, replaceString)
     file.contents = new Buffer(contents)
+    // Since we change a part of the `contents` being matched and some parts
+    // previously matched are not already there we have to reset the regular
+    // expression state. It would be better to split a file into lines and
+    // match each one with a stateless (non-global) expression
+    reg.lastIndex = 0;
   }
 
   callback(null, file)
