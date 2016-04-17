@@ -37,6 +37,13 @@ function transform (file, env, callback) {
 
     const replaceString = imports.join('\n')
     contents = contents.replace(importRule, replaceString)
+    // `reg.lastIndex` indicates the last character of the `contents` when `reg`
+    // matched. Since we remove this line we have to rewind the index to make
+    // it go though all characters of the added lines. If it's not done then
+    // a false positive of `reg.exec(contents) == null` occurs before all lines
+    // of the file are processed because `reg` starts from somewhere in the
+    // middle of last `replaceString` instead of the very beginning of it.
+    reg.lastIndex -= importRule.length;
     file.contents = new Buffer(contents)
   }
 
