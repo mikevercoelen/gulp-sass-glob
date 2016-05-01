@@ -14,30 +14,35 @@ function transform (file, env, callback) {
   const base = path.normalize(path.join(path.dirname(file.path), '/'))
 
   let contents = file.contents.toString('utf-8')
+  let contentsCount = contents.split('\n').length
 
   let result
 
-  while ((result = reg.exec(contents)) !== null) {
-    const importRule = result[0]
-    const globPattern = result[1]
+  for(var i=0; i<contentsCount; i++) {
+    result = reg.exec(contents)
 
-    const files = glob.sync(path.join(base, globPattern), {
-      cwd: base
-    })
+    if(result !== null) {
+      const importRule = result[0]
+      const globPattern = result[1]
 
-    let imports = []
+      const files = glob.sync(path.join(base, globPattern), {
+        cwd: base
+      })
 
-    files.forEach((filename) => {
-      if (filename !== file.path && isSassOrScss(filename)) {
-        // remove parent base path
-        filename = path.normalize(filename).replace(base, '')
-        imports.push('@import "' + slash(filename) + '"' + (isSass ? '' : ';'))
-      }
-    })
+      let imports = []
 
-    const replaceString = imports.join('\n')
-    contents = contents.replace(importRule, replaceString)
-    file.contents = new Buffer(contents)
+      files.forEach((filename) => {
+        if (filename !== file.path && isSassOrScss(filename)) {
+          // remove parent base path
+          filename = path.normalize(filename).replace(base, '')
+          imports.push('@import "' + slash(filename) + '"' + (isSass ? '' : ';'))
+        }
+      })
+
+      const replaceString = imports.join('\n')
+      contents = contents.replace(importRule, replaceString)
+      file.contents = new Buffer(contents)
+    }
   }
 
   callback(null, file)
