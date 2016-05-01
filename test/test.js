@@ -84,4 +84,20 @@ describe('gulp-sass-glob', () => {
       })
       .on('end', done)
   })
+
+  it('(scss) should ignore empty directories', (done) => {
+    const expectedResult = [
+      '@import "import/_f1.scss";',
+      '@import "import/_f2.scss";'
+    ].join('\n')
+
+    vinyl
+      .src(path.join(__dirname, '/test-scss/ignore-empty.scss'))
+      .pipe(sassGlob())
+      .on('data', (file) => {
+        const contents = file.contents.toString('utf-8').trim()
+        expect(contents).to.equal(expectedResult.trim())
+      })
+      .on('end', done)
+  })
 })
