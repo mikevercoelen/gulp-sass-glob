@@ -22,6 +22,8 @@ main.scss
 @import "generic/**/*.scss";
 @import "../components/**/*.scss";
 @import "../views/**/*.scss";
+@import "../views/**/*something.scss";
+@import "../views/**/all.scss";
 ```
 
 *NOTE*: Also support using `'` (single quotes) for example: `@import 'vars/**/*.scss';`
