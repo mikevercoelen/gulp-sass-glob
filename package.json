@@ -4,7 +4,7 @@
   "description": "Gulp task to use glob imports in your sass/scss files.",
   "repository": {
     "type": "git",
-    "url": "git+https://tomgrooffer@github.com/tomgrooffer/gulp-sass-glob.git"
+    "url": "git+https://github.com/DanielaValero/gulp-sass-glob.git"
   },
   "keywords": [
     "gulp",
@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/tomgrooffer/gulp-sass-glob/issues"
   },
-  "homepage": "https://github.com/tomgrooffer/gulp-sass-glob#readme",
+  "homepage": "https://github.com/DanielaValero/gulp-sass-glob#readme",
   "main": "./dist/index.js",
   "scripts": {
     "compile": "babel -d dist/ src/",
