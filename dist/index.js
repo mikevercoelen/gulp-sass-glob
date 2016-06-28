@@ -32,7 +32,7 @@ function gulpSassGlob() {
 }
 
 function transform(file, env, callback) {
-  var reg = /^\s*@import\s+["']([^"']+\*(\.scss|\.sass)?)["'];?$/gm;
+  var reg = /^\s*@import\s+["']([^"']+\*[^"']*(\.scss|\.sass)?)["'];?$/gm;
   var isSass = _path2.default.extname(file.path) === '.sass';
   var base = _path2.default.normalize(_path2.default.join(_path2.default.dirname(file.path), '/'));
 

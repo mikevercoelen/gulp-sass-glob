@@ -1,8 +1,16 @@
-[![Package Quality](http://npm.packagequality.com/badge/gulp-sass-glob.png)](http://packagequality.com/#?package=gulp-sass-glob)
+[![Package Quality](http://npm.packagequality.com/badge/gulp-sass-glob-2.png)](http://packagequality.com/#?package=gulp-sass-glob-2)
 
-[![Package Quality](http://npm.packagequality.com/shield/gulp-sass-glob.svg)](http://packagequality.com/#?package=gulp-sass-glob)
+[![Package Quality](http://npm.packagequality.com/shield/gulp-sass-glob-2.svg)](http://packagequality.com/#?package=gulp-sass-glob-2)
 
-# gulp-sass-glob
+![dependencies](https://david-dm.org/DanielaValero/gulp-sass-glob.svg)
+
+# About gulp-sass-glob-2
+
+This is a fork of [gulp-sass-glob](https://www.npmjs.com/package/gulp-sass-glob). It is **meant to be a temporal package**, so the users of the last pull requests can get the package directly from NPM until the author of the plugin has time to publish the new version that contains all of them.
+
+Once we have the last version published, we will request NPM to remove this package, we love to contribute to open source, while joining forces to have one strong solution, rather than multiple weak.
+
+# Overview
 
 [Gulp](http://gulpjs.com/) plugin for [gulp-sass](https://github.com/dlmanning/gulp-sass) to use glob imports.
 
@@ -22,6 +30,8 @@ main.scss
 @import "generic/**/*.scss";
 @import "../components/**/*.scss";
 @import "../views/**/*.scss";
+@import "../views/**/*something.scss";
+@import "../views/**/all.scss";
 ```
 
 *NOTE*: Also support using `'` (single quotes) for example: `@import 'vars/**/*.scss';`
