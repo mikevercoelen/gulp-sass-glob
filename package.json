@@ -1,5 +1,5 @@
 {
-  "name": "gulp-sass-glob",
+  "name": "gulp-sass-glob-2",
   "version": "1.0.8",
   "description": "Gulp task to use glob imports in your sass/scss files.",
   "repository": {
