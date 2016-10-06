@@ -1,6 +1,6 @@
 [![Package Quality](http://npm.packagequality.com/badge/gulp-sass-glob.png)](http://packagequality.com/#?package=gulp-sass-glob)
 
-[![Package Quality](http://npm.packagequality.com/shield/gulp-sass-glob.svg)](http://packagequality.com/#?package=gulp-sass-glob)
+[![Package Quality](http://npm.packagequality.com/shield/gulp-sass-glob.svg)](http://packagequality.com/#?package=gulp-sass-glob)  [![Build Status](https://travis-ci.org/Apkawa/gulp-sass-glob.svg?branch=master)](https://travis-ci.org/Apkawa/gulp-sass-glob)
 
 # gulp-sass-glob
 
