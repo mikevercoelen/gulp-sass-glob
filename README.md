@@ -79,3 +79,16 @@ Problem solved.
 - [Daviestar](https://github.com/daviestar) for fixing re-including main file bug, recursion bug, sass-not-scss bug
 - [Nirazul](https://github.com/Nirazul) for reporting the comment glob bug
 - [CREEATION](https://github.com/CREEATION) for submitting a regex for comment globs
+
+
+# Contribute
+
+## Run tests
+```
+npm test
+```
+## Build dist
+```
+npm run compile
+```
+
