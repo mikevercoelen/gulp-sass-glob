@@ -4,50 +4,63 @@ import through from 'through2'
 import glob from 'glob'
 import slash from 'slash'
 
-export default function gulpSassGlob () {
-  return through.obj(transform)
+export default function gulpSassGlob(options = {}) {
+    return through.obj((...args) => {
+        transform(...args, options)
+    })
 }
 
-function transform (file, env, callback) {
-  const reg = /^\s*@import\s+["']([^"']+\*[^"']*(\.scss|\.sass)?)["'];?$/gm
-  const isSass = path.extname(file.path) === '.sass'
-  const base = path.normalize(path.join(path.dirname(file.path), '/'))
+function transform(file, env, callback, options = {}) {
+    const includePaths = options.includePaths || {};
+    const reg = /^\s*@import\s+["']([^"']+\*[^"']*(\.scss|\.sass)?)["'];?$/gm
+    const isSass = path.extname(file.path) === '.sass'
+    const base = path.normalize(path.join(path.dirname(file.path), '/'))
 
-  let contents = file.contents.toString('utf-8')
-  let contentsCount = contents.split('\n').length
 
-  let result
+    const searchBases = [base, ...includePaths].map((v) => path.join(path.normalize(v), '/'))
+    let contents = file.contents.toString('utf-8')
+    let contentsCount = contents.split('\n').length
 
-  for(var i=0; i<contentsCount; i++) {
-    result = reg.exec(contents)
+    let result
 
-    if(result !== null) {
-      const importRule = result[0]
-      const globPattern = result[1]
+    for (var i = 0; i < contentsCount; i++) {
+        result = reg.exec(contents)
 
-      const files = glob.sync(path.join(base, globPattern), {
-        cwd: base
-      })
+        if (result !== null) {
+            const importRule = result[0]
+            const globPattern = result[1]
 
-      let imports = []
+            var files = [];
+            var _base_path;
+            for (_base_path of searchBases) {
 
-      files.forEach((filename) => {
-        if (filename !== file.path && isSassOrScss(filename)) {
-          // remove parent base path
-          filename = path.normalize(filename).replace(base, '')
-          imports.push('@import "' + slash(filename) + '"' + (isSass ? '' : ';'))
+                files = glob.sync(path.join(_base_path, globPattern), {
+                    cwd: _base_path
+                })
+                if (files.length > 0) {
+                    break
+                }
+            }
+
+            let imports = []
+
+            files.forEach((filename) => {
+                if (filename !== file.path && isSassOrScss(filename)) {
+                    // remove parent base path
+                    filename = path.normalize(filename).replace(_base_path, '');
+                    imports.push('@import "' + slash(filename) + '"' + (isSass ? '' : ';'))
+                }
+            })
+
+            const replaceString = imports.join('\n')
+            contents = contents.replace(importRule, replaceString)
+            file.contents = new Buffer(contents)
         }
-      })
-
-      const replaceString = imports.join('\n')
-      contents = contents.replace(importRule, replaceString)
-      file.contents = new Buffer(contents)
     }
-  }
 
-  callback(null, file)
+    callback(null, file)
 }
 
-function isSassOrScss (filename) {
-  return (!fs.statSync(filename).isDirectory() && path.extname(filename).match(/\.sass|\.scss/i))
+function isSassOrScss(filename) {
+    return (!fs.statSync(filename).isDirectory() && path.extname(filename).match(/\.sass|\.scss/i))
 }
