@@ -4,6 +4,8 @@ import through from 'through2'
 import glob from 'glob'
 import slash from 'slash'
 
+const IMPORT_RE = /^([ \t]*(?:\/\*.*)?)@import\s+["']([^"']+\*[^"']*(?:\.scss|\.sass)?)["'];?([ \t]*(?:\/[\/\*].*)?)$/gm;
+
 export default function gulpSassGlob(options = {}) {
     return through.obj((...args) => {
         transform(...args, options)
@@ -16,7 +18,6 @@ function transform(file, env, callback, options = {}) {
         includePaths[i] = path.join(path.normalize(includePaths[i]), '/')
     }
 
-    const reg = /^\s*@import\s+["']([^"']+\*[^"']*(\.scss|\.sass)?)["'];?$/gm
     const isSass = path.extname(file.path) === '.sass'
     const base = path.normalize(path.join(path.dirname(file.path), '/'))
 
@@ -28,11 +29,10 @@ function transform(file, env, callback, options = {}) {
     let result
 
     for (var i = 0; i < contentsCount; i++) {
-        result = reg.exec(contents)
+        result = IMPORT_RE.exec(contents)
 
         if (result !== null) {
-            const importRule = result[0]
-            const globPattern = result[1]
+            const [importRule, startComment, globPattern, endComment] = result;
 
             var files = [];
             var _base_path;
@@ -56,6 +56,15 @@ function transform(file, env, callback, options = {}) {
                     imports.push('@import "' + slash(filename) + '"' + (isSass ? '' : ';'))
                 }
             })
+
+            if (startComment) {
+                imports.unshift(startComment)
+            }
+
+            if (endComment) {
+                imports.push(endComment)
+            }
+
 
             const replaceString = imports.join('\n')
             contents = contents.replace(importRule, replaceString)

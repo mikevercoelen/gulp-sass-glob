@@ -154,4 +154,40 @@ describe('gulp-sass-glob', () => {
             })
             .on('end', done)
     })
+
+    it('(scss) Issue #28', (done) => {
+        const expectedResult = [
+            '@import "import/_f1.scss";',
+            '@import "import/_f2.scss";',
+            ' // must_be_fix, this comment stripped',
+            '@import "import/_f1.scss";',
+            '@import "import/_f2.scss";',
+            ' /* Start multiline comment',
+            '*/',
+            '@import "import/_f1.scss";',
+            '@import "import/_f2.scss";',
+            ' /*',
+            'Start 2 multiline comment',
+            '*/',
+            '/* And this */',
+            '@import "import/_f1.scss";',
+            '@import "import/_f2.scss";',
+            '/* begin comment */',
+            '@import "import/_f1.scss";',
+            '@import "import/_f2.scss";',
+            ' /* end comment */',
+            '// @import "import/*" - ignore this',
+            '// end //'
+
+        ].join('\n')
+
+        vinyl
+            .src(path.join(__dirname, '/test-scss/issue_28.scss'))
+            .pipe(sassGlob())
+            .on('data', (file) => {
+                const contents = file.contents.toString('utf-8').trim()
+                expect(contents).to.equal(expectedResult.trim())
+            })
+            .on('end', done)
+    })
 });
