@@ -11,13 +11,17 @@ export default function gulpSassGlob(options = {}) {
 }
 
 function transform(file, env, callback, options = {}) {
-    const includePaths = options.includePaths || {};
+    const includePaths = options.includePaths || [];
+    for (let i = 0; i < includePaths.length; i++) {
+        includePaths[i] = path.join(path.normalize(includePaths[i]), '/')
+    }
+
     const reg = /^\s*@import\s+["']([^"']+\*[^"']*(\.scss|\.sass)?)["'];?$/gm
     const isSass = path.extname(file.path) === '.sass'
     const base = path.normalize(path.join(path.dirname(file.path), '/'))
 
 
-    const searchBases = [base, ...includePaths].map((v) => path.join(path.normalize(v), '/'))
+    const searchBases = [base, ...includePaths]
     let contents = file.contents.toString('utf-8')
     let contentsCount = contents.split('\n').length
 
@@ -32,7 +36,8 @@ function transform(file, env, callback, options = {}) {
 
             var files = [];
             var _base_path;
-            for (_base_path of searchBases) {
+            for (let i = 0; i < searchBases.length; i++) {
+                _base_path = searchBases[i];
 
                 files = glob.sync(path.join(_base_path, globPattern), {
                     cwd: _base_path
