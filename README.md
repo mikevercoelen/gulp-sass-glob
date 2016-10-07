@@ -1,6 +1,6 @@
 [![Package Quality](http://npm.packagequality.com/badge/gulp-sass-glob.png)](http://packagequality.com/#?package=gulp-sass-glob)
 
-[![Package Quality](http://npm.packagequality.com/shield/gulp-sass-glob.svg)](http://packagequality.com/#?package=gulp-sass-glob)
+[![Package Quality](http://npm.packagequality.com/shield/gulp-sass-glob.svg)](http://packagequality.com/#?package=gulp-sass-glob)  [![Build Status](https://travis-ci.org/Apkawa/gulp-sass-glob.svg?branch=master)](https://travis-ci.org/Apkawa/gulp-sass-glob)
 
 # gulp-sass-glob
 
@@ -79,3 +79,16 @@ Problem solved.
 - [Daviestar](https://github.com/daviestar) for fixing re-including main file bug, recursion bug, sass-not-scss bug
 - [Nirazul](https://github.com/Nirazul) for reporting the comment glob bug
 - [CREEATION](https://github.com/CREEATION) for submitting a regex for comment globs
+
+
+# Contribute
+
+## Run tests
+```
+npm test
+```
+## Build dist
+```
+npm run compile
+```
+
