@@ -28,11 +28,15 @@ var _slash = require('slash');
 
 var _slash2 = _interopRequireDefault(_slash);
 
+var _minimatch = require('minimatch');
+
+var _minimatch2 = _interopRequireDefault(_minimatch);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-var IMPORT_RE = /^([ \t]*(?:\/\*.*)?)@import\s+["']([^"']+\*[^"']*(?:\.scss|\.sass)?)["'];?([ \t]*(?:\/[\/\*].*)?)$/gm;
+var IMPORT_RE = /^([ \t]*(?:\/\*.*)?)@import\s+["']([^"']+\*[^"']*(?:\.scss|\.sass)?)["'];?([ \t]*(?:\/[/*].*)?)$/gm;
 
 function gulpSassGlob() {
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -57,6 +61,7 @@ function transform(file, env, callback) {
 
   var isSass = _path2.default.extname(file.path) === '.sass';
   var base = _path2.default.normalize(_path2.default.join(_path2.default.dirname(file.path), '/'));
+  var ignorePaths = options.ignorePaths || [];
 
   var searchBases = [base].concat(_toConsumableArray(includePaths));
   var contents = file.contents.toString('utf-8');
@@ -96,7 +101,12 @@ function transform(file, env, callback) {
           if (filename !== file.path && isSassOrScss(filename)) {
             // remove parent base path
             filename = _path2.default.normalize(filename).replace(basePath, '');
-            imports.push('@import "' + (0, _slash2.default)(filename) + '"' + (isSass ? '' : ';'));
+            if (!ignorePaths.some(function (ignorePath) {
+              return (0, _minimatch2.default)(filename, ignorePath);
+            })) {
+              // remove parent base path
+              imports.push('@import "' + (0, _slash2.default)(filename) + '"' + (isSass ? '' : ';'));
+            }
           }
         });
 

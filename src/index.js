@@ -3,6 +3,7 @@ import fs from 'fs';
 import through from 'through2';
 import glob from 'glob';
 import slash from 'slash';
+import minimatch from 'minimatch'
 
 const IMPORT_RE = /^([ \t]*(?:\/\*.*)?)@import\s+["']([^"']+\*[^"']*(?:\.scss|\.sass)?)["'];?([ \t]*(?:\/[/*].*)?)$/gm;
 
@@ -21,6 +22,7 @@ function transform (file, env, callback, options = {}) {
 
   const isSass = path.extname(file.path) === '.sass';
   const base = path.normalize(path.join(path.dirname(file.path), '/'));
+  const ignorePaths = options.ignorePaths || [];
 
   const searchBases = [base, ...includePaths];
   let contents = file.contents.toString('utf-8');
@@ -54,7 +56,12 @@ function transform (file, env, callback, options = {}) {
         if (filename !== file.path && isSassOrScss(filename)) {
           // remove parent base path
           filename = path.normalize(filename).replace(basePath, '');
-          imports.push('@import "' + slash(filename) + '"' + (isSass ? '' : ';'));
+          if(!ignorePaths.some(ignorePath => {
+              return minimatch(filename, ignorePath)
+          })) {
+              // remove parent base path
+              imports.push('@import "' + slash(filename) + '"' + (isSass ? '' : ';'))
+          }
         }
       });
 
