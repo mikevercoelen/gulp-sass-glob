@@ -3,6 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 exports.default = gulpSassGlob;
 
 var _path = require('path');
@@ -29,6 +32,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
+var IMPORT_RE = /^([ \t]*(?:\/\*.*)?)@import\s+["']([^"']+\*[^"']*(?:\.scss|\.sass)?)["'];?([ \t]*(?:\/[\/\*].*)?)$/gm;
+
 function gulpSassGlob() {
     var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
@@ -44,21 +49,22 @@ function gulpSassGlob() {
 function transform(file, env, callback) {
     var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
 
-    var includePaths = options.includePaths || {};
-    var reg = /^\s*@import\s+["']([^"']+\*[^"']*(\.scss|\.sass)?)["'];?$/gm;
+    var includePaths = options.includePaths || [];
+    for (var _i = 0; _i < includePaths.length; _i++) {
+        includePaths[_i] = _path2.default.join(_path2.default.normalize(includePaths[_i]), '/');
+    }
+
     var isSass = _path2.default.extname(file.path) === '.sass';
     var base = _path2.default.normalize(_path2.default.join(_path2.default.dirname(file.path), '/'));
 
-    var searchBases = [base].concat(_toConsumableArray(includePaths)).map(function (v) {
-        return _path2.default.join(_path2.default.normalize(v), '/');
-    });
+    var searchBases = [base].concat(_toConsumableArray(includePaths));
     var contents = file.contents.toString('utf-8');
     var contentsCount = contents.split('\n').length;
 
     var result = void 0;
 
     for (var i = 0; i < contentsCount; i++) {
-        result = reg.exec(contents);
+        result = IMPORT_RE.exec(contents);
 
         if (result !== null) {
             var files;
@@ -66,38 +72,23 @@ function transform(file, env, callback) {
             var _base_path;
 
             (function () {
-                var importRule = result[0];
-                var globPattern = result[1];
+                var _result = result,
+                    _result2 = _slicedToArray(_result, 4),
+                    importRule = _result2[0],
+                    startComment = _result2[1],
+                    globPattern = _result2[2],
+                    endComment = _result2[3];
 
                 files = [];
-                var _iteratorNormalCompletion = true;
-                var _didIteratorError = false;
-                var _iteratorError = undefined;
 
-                try {
-                    for (var _iterator = searchBases[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                        _base_path = _step.value;
+                for (var _i2 = 0; _i2 < searchBases.length; _i2++) {
+                    _base_path = searchBases[_i2];
 
-
-                        files = _glob2.default.sync(_path2.default.join(_base_path, globPattern), {
-                            cwd: _base_path
-                        });
-                        if (files.length > 0) {
-                            break;
-                        }
-                    }
-                } catch (err) {
-                    _didIteratorError = true;
-                    _iteratorError = err;
-                } finally {
-                    try {
-                        if (!_iteratorNormalCompletion && _iterator.return) {
-                            _iterator.return();
-                        }
-                    } finally {
-                        if (_didIteratorError) {
-                            throw _iteratorError;
-                        }
+                    files = _glob2.default.sync(_path2.default.join(_base_path, globPattern), {
+                        cwd: _base_path
+                    });
+                    if (files.length > 0) {
+                        break;
                     }
                 }
 
@@ -110,6 +101,14 @@ function transform(file, env, callback) {
                         imports.push('@import "' + (0, _slash2.default)(filename) + '"' + (isSass ? '' : ';'));
                     }
                 });
+
+                if (startComment) {
+                    imports.unshift(startComment);
+                }
+
+                if (endComment) {
+                    imports.push(endComment);
+                }
 
                 var replaceString = imports.join('\n');
                 contents = contents.replace(importRule, replaceString);
