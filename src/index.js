@@ -4,7 +4,7 @@ import through from 'through2';
 import glob from 'glob';
 import slash from 'slash';
 
-const IMPORT_RE = /^([ \t]*(?:\/\*.*)?)@import\s+["']([^"']+\*[^"']*(?:\.scss|\.sass)?)["'];?([ \t]*(?:\/[\/\*].*)?)$/gm;
+const IMPORT_RE = /^([ \t]*(?:\/\*.*)?)@import\s+["']([^"']+\*[^"']*(?:\.scss|\.sass)?)["'];?([ \t]*(?:\/[/*].*)?)$/gm;
 
 export default function gulpSassGlob (options = {}) {
   return through.obj((...args) => {
