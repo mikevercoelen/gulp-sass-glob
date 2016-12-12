@@ -90,70 +90,68 @@ describe('gulp-sass-glob', () => {
   });
 
   it('(scss) should omit ignored directories', (done) => {
-      const expectedResult = [
-          '@import "recursive/_f1.scss";',
-          '@import "recursive/_f2.scss";',
-          '@import "import/_f1.scss";',
-          '@import "import/_f2.scss";'
-      ].join('\n')
+    const expectedResult = [
+      '@import "recursive/_f1.scss";',
+      '@import "recursive/_f2.scss";',
+      '@import "import/_f1.scss";',
+      '@import "import/_f2.scss";'
+    ].join('\n');
 
-      vinyl
+    vinyl
           .src(path.join(__dirname, '/test-scss/multiple.scss'))
           .pipe(sassGlob({
-              ignorePaths: [
-                  'recursive/nested/**'
-              ]
+            ignorePaths: [
+              'recursive/nested/**'
+            ]
           }))
           .on('data', (file) => {
-              const contents = file.contents.toString('utf-8').trim()
-              expect(contents).to.equal(expectedResult.trim())
+            const contents = file.contents.toString('utf-8').trim();
+            expect(contents).to.equal(expectedResult.trim());
           })
-          .on('end', done)
-  })
-
+          .on('end', done);
+  });
 
   it('(scss) should allow globbing when ignoring files', (done) => {
-      const expectedResult = [
-          '@import "recursive/_f2.scss";',
-          '@import "recursive/nested/_f3.scss";',
-          '@import "import/_f2.scss";'
-      ].join('\n')
+    const expectedResult = [
+      '@import "recursive/_f2.scss";',
+      '@import "recursive/nested/_f3.scss";',
+      '@import "import/_f2.scss";'
+    ].join('\n');
 
-      vinyl
+    vinyl
           .src(path.join(__dirname, '/test-scss/multiple.scss'))
           .pipe(sassGlob({
-              ignorePaths: [
-                  '**/_f1.scss'
-              ]
+            ignorePaths: [
+              '**/_f1.scss'
+            ]
           }))
           .on('data', (file) => {
-              const contents = file.contents.toString('utf-8').trim()
-              expect(contents).to.equal(expectedResult.trim())
+            const contents = file.contents.toString('utf-8').trim();
+            expect(contents).to.equal(expectedResult.trim());
           })
-          .on('end', done)
-  })
+          .on('end', done);
+  });
 
   it('(scss) should allow multiple ignore patterns', (done) => {
-      const expectedResult = [
-          '@import "recursive/nested/_f3.scss";',
-      ].join('\n')
+    const expectedResult = [
+      '@import "recursive/nested/_f3.scss";'
+    ].join('\n');
 
-      vinyl
+    vinyl
           .src(path.join(__dirname, '/test-scss/multiple.scss'))
           .pipe(sassGlob({
-              ignorePaths: [
-                  '**/_f1.scss',
-                  'recursive/_f2.scss',
-                  'import/**'
-              ]
+            ignorePaths: [
+              '**/_f1.scss',
+              'recursive/_f2.scss',
+              'import/**'
+            ]
           }))
           .on('data', (file) => {
-              const contents = file.contents.toString('utf-8').trim()
-              expect(contents).to.equal(expectedResult.trim())
+            const contents = file.contents.toString('utf-8').trim();
+            expect(contents).to.equal(expectedResult.trim());
           })
-          .on('end', done)
-  })
-
+          .on('end', done);
+  });
 
   it('(scss) should ignore commented globs', (done) => {
     vinyl
