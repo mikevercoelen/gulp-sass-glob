@@ -44,6 +44,26 @@ gulp.task('styles', function () {
 });
 ```
 
+# Ignoring files and directories by pattern
+
+You can optionally provide an array of paths to be ignored. Any files and directories that match any of these glob patterns are skipped.
+
+```
+gulp.task('styles', function () {
+    return gulp
+        .src('src/styles/main.scss')
+          .pipe(sassGlob({
+              ignorePaths: [
+                  '**/_f1.scss',
+                  'recursive/*.scss',
+                  'import/**'
+              ]
+          }))
+        .pipe(sass())
+        .pipe(gulp.dest('dist/styles'));
+});
+```
+
 # Troubleshooting
 
 ## Nested glob imports
