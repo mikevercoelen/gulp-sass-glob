@@ -23,6 +23,8 @@ function transform (file, env, callback, options = {}) {
   const isSass = path.extname(file.path) === '.sass';
   const base = path.normalize(path.join(path.dirname(file.path), '/'));
   const ignorePaths = options.ignorePaths || [];
+  const withoutFileExtension = options.withoutFileExtension || false;
+  const enclosure = options.enclosure || '\'';
 
   const searchBases = [base, ...includePaths];
   let contents = file.contents.toString('utf-8');
@@ -60,7 +62,10 @@ function transform (file, env, callback, options = {}) {
             return minimatch(filename, ignorePath);
           })) {
               // remove parent base path
-            imports.push('@import "' + slash(filename) + '"' + (isSass ? '' : ';'));
+            if (withoutFileExtension) {
+              filename = filename.replace(/(\.[^/.]+)+$/, '');
+            }
+            imports.push('@import ' + enclosure + slash(filename) + enclosure + (isSass ? '' : ';'));
           }
         }
       });
