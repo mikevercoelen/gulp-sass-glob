@@ -23,7 +23,7 @@
     "compile": "babel -d dist/ src/",
     "prepublish": "npm run compile",
     "start": "npm run compile && node dist/index.js",
-    "test": "mocha --compilers js:babel-register",
+    "test": "mocha --require babel-core/register",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "prepush": "npm run lint-fix && npm run test",
@@ -38,6 +38,7 @@
   "dependencies": {
     "glob": "^7.1.2",
     "minimatch": "^3.0.4",
+    "safe-buffer": "^5.1.1",
     "slash": "^2.0.0",
     "through2": "^2.0.3"
   },

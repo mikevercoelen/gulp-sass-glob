@@ -4,6 +4,7 @@ import through from 'through2';
 import glob from 'glob';
 import slash from 'slash';
 import minimatch from 'minimatch';
+import { Buffer } from 'safe-buffer';
 
 const IMPORT_RE = /^([ \t]*(?:\/\*.*)?)@import\s+["']([^"']+\*[^"']*(?:\.scss|\.sass)?)["'];?([ \t]*(?:\/[/*].*)?)$/gm;
 
@@ -59,7 +60,7 @@ function transform (file, env, callback, options = {}) {
           if (!ignorePaths.some(ignorePath => {
             return minimatch(filename, ignorePath);
           })) {
-              // remove parent base path
+            // remove parent base path
             imports.push('@import "' + slash(filename) + '"' + (isSass ? '' : ';'));
           }
         }

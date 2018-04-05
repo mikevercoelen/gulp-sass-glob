@@ -13,13 +13,13 @@ describe('gulp-sass-glob', () => {
     ].join('\n');
 
     vinyl
-            .src(path.join(__dirname, '/test-scss/single-directory.scss'))
-            .pipe(sassGlob())
-            .on('data', (file) => {
-              const contents = file.contents.toString('utf-8').trim();
-              expect(contents).to.equal(expectedResult.trim());
-            })
-            .on('end', done);
+      .src(path.join(__dirname, '/test-scss/single-directory.scss'))
+      .pipe(sassGlob())
+      .on('data', (file) => {
+        const contents = file.contents.toString('utf-8').trim();
+        expect(contents).to.equal(expectedResult.trim());
+      })
+      .on('end', done);
   });
 
   it('(sass) should parse a single directory', (done) => {
@@ -29,13 +29,13 @@ describe('gulp-sass-glob', () => {
     ].join('\n');
 
     vinyl
-            .src(path.join(__dirname, '/test-scss/single-directory.sass'))
-            .pipe(sassGlob())
-            .on('data', (file) => {
-              const contents = file.contents.toString('utf-8').trim();
-              expect(contents).to.equal(expectedResult.trim());
-            })
-            .on('end', done);
+      .src(path.join(__dirname, '/test-scss/single-directory.sass'))
+      .pipe(sassGlob())
+      .on('data', (file) => {
+        const contents = file.contents.toString('utf-8').trim();
+        expect(contents).to.equal(expectedResult.trim());
+      })
+      .on('end', done);
   });
 
   it('(sass) should understand imports with fixed file name', (done) => {
@@ -44,13 +44,13 @@ describe('gulp-sass-glob', () => {
     ].join('\n');
 
     vinyl
-            .src(path.join(__dirname, '/test-scss/fixed-name.scss'))
-            .pipe(sassGlob())
-            .on('data', (file) => {
-              const contents = file.contents.toString('utf-8').trim();
-              expect(contents).to.equal(expectedResult.trim());
-            })
-            .on('end', done);
+      .src(path.join(__dirname, '/test-scss/fixed-name.scss'))
+      .pipe(sassGlob())
+      .on('data', (file) => {
+        const contents = file.contents.toString('utf-8').trim();
+        expect(contents).to.equal(expectedResult.trim());
+      })
+      .on('end', done);
   });
 
   it('(scss) should parse a directory recursively', (done) => {
@@ -61,13 +61,13 @@ describe('gulp-sass-glob', () => {
     ].join('\n');
 
     vinyl
-            .src(path.join(__dirname, '/test-scss/recursive.scss'))
-            .pipe(sassGlob())
-            .on('data', (file) => {
-              const contents = file.contents.toString('utf-8').trim();
-              expect(contents).to.equal(expectedResult.trim());
-            })
-            .on('end', done);
+      .src(path.join(__dirname, '/test-scss/recursive.scss'))
+      .pipe(sassGlob())
+      .on('data', (file) => {
+        const contents = file.contents.toString('utf-8').trim();
+        expect(contents).to.equal(expectedResult.trim());
+      })
+      .on('end', done);
   });
 
   it('(scss) should find multiple imports', (done) => {
@@ -80,13 +80,13 @@ describe('gulp-sass-glob', () => {
     ].join('\n');
 
     vinyl
-            .src(path.join(__dirname, '/test-scss/multiple.scss'))
-            .pipe(sassGlob())
-            .on('data', (file) => {
-              const contents = file.contents.toString('utf-8').trim();
-              expect(contents).to.equal(expectedResult.trim());
-            })
-            .on('end', done);
+      .src(path.join(__dirname, '/test-scss/multiple.scss'))
+      .pipe(sassGlob())
+      .on('data', (file) => {
+        const contents = file.contents.toString('utf-8').trim();
+        expect(contents).to.equal(expectedResult.trim());
+      })
+      .on('end', done);
   });
 
   it('(scss) should omit ignored directories', (done) => {
@@ -98,17 +98,17 @@ describe('gulp-sass-glob', () => {
     ].join('\n');
 
     vinyl
-          .src(path.join(__dirname, '/test-scss/multiple.scss'))
-          .pipe(sassGlob({
-            ignorePaths: [
-              'recursive/nested/**'
-            ]
-          }))
-          .on('data', (file) => {
-            const contents = file.contents.toString('utf-8').trim();
-            expect(contents).to.equal(expectedResult.trim());
-          })
-          .on('end', done);
+      .src(path.join(__dirname, '/test-scss/multiple.scss'))
+      .pipe(sassGlob({
+        ignorePaths: [
+          'recursive/nested/**'
+        ]
+      }))
+      .on('data', (file) => {
+        const contents = file.contents.toString('utf-8').trim();
+        expect(contents).to.equal(expectedResult.trim());
+      })
+      .on('end', done);
   });
 
   it('(scss) should allow globbing when ignoring files', (done) => {
@@ -119,17 +119,17 @@ describe('gulp-sass-glob', () => {
     ].join('\n');
 
     vinyl
-          .src(path.join(__dirname, '/test-scss/multiple.scss'))
-          .pipe(sassGlob({
-            ignorePaths: [
-              '**/_f1.scss'
-            ]
-          }))
-          .on('data', (file) => {
-            const contents = file.contents.toString('utf-8').trim();
-            expect(contents).to.equal(expectedResult.trim());
-          })
-          .on('end', done);
+      .src(path.join(__dirname, '/test-scss/multiple.scss'))
+      .pipe(sassGlob({
+        ignorePaths: [
+          '**/_f1.scss'
+        ]
+      }))
+      .on('data', (file) => {
+        const contents = file.contents.toString('utf-8').trim();
+        expect(contents).to.equal(expectedResult.trim());
+      })
+      .on('end', done);
   });
 
   it('(scss) should allow multiple ignore patterns', (done) => {
@@ -138,30 +138,30 @@ describe('gulp-sass-glob', () => {
     ].join('\n');
 
     vinyl
-          .src(path.join(__dirname, '/test-scss/multiple.scss'))
-          .pipe(sassGlob({
-            ignorePaths: [
-              '**/_f1.scss',
-              'recursive/_f2.scss',
-              'import/**'
-            ]
-          }))
-          .on('data', (file) => {
-            const contents = file.contents.toString('utf-8').trim();
-            expect(contents).to.equal(expectedResult.trim());
-          })
-          .on('end', done);
+      .src(path.join(__dirname, '/test-scss/multiple.scss'))
+      .pipe(sassGlob({
+        ignorePaths: [
+          '**/_f1.scss',
+          'recursive/_f2.scss',
+          'import/**'
+        ]
+      }))
+      .on('data', (file) => {
+        const contents = file.contents.toString('utf-8').trim();
+        expect(contents).to.equal(expectedResult.trim());
+      })
+      .on('end', done);
   });
 
   it('(scss) should ignore commented globs', (done) => {
     vinyl
-            .src(path.join(__dirname, '/test-scss/ignore-comments.scss'))
-            .pipe(sassGlob())
-            .on('data', (file) => {
-              const contents = file.contents.toString('utf-8').trim();
-              expect(contents).to.equal(contents);
-            })
-            .on('end', done);
+      .src(path.join(__dirname, '/test-scss/ignore-comments.scss'))
+      .pipe(sassGlob())
+      .on('data', (file) => {
+        const contents = file.contents.toString('utf-8').trim();
+        expect(contents).to.equal(contents);
+      })
+      .on('end', done);
   });
 
   it('(scss) should ignore empty directories', (done) => {
@@ -171,13 +171,13 @@ describe('gulp-sass-glob', () => {
     ].join('\n');
 
     vinyl
-            .src(path.join(__dirname, '/test-scss/ignore-empty.scss'))
-            .pipe(sassGlob())
-            .on('data', (file) => {
-              const contents = file.contents.toString('utf-8').trim();
-              expect(contents).to.equal(expectedResult.trim());
-            })
-            .on('end', done);
+      .src(path.join(__dirname, '/test-scss/ignore-empty.scss'))
+      .pipe(sassGlob())
+      .on('data', (file) => {
+        const contents = file.contents.toString('utf-8').trim();
+        expect(contents).to.equal(expectedResult.trim());
+      })
+      .on('end', done);
   });
   it('(scss) should use includePaths like gulp-sass', (done) => {
     const expectedResult = [
@@ -185,17 +185,17 @@ describe('gulp-sass-glob', () => {
     ].join('\n');
 
     vinyl
-            .src(path.join(__dirname, '/test-scss/option-includePaths.scss'))
-            .pipe(sassGlob({
-              includePaths: [
-                path.join(__dirname, '/test-scss/recursive/')
-              ]
-            }))
-            .on('data', (file) => {
-              const contents = file.contents.toString('utf-8').trim();
-              expect(contents).to.equal(expectedResult.trim());
-            })
-            .on('end', done);
+      .src(path.join(__dirname, '/test-scss/option-includePaths.scss'))
+      .pipe(sassGlob({
+        includePaths: [
+          path.join(__dirname, '/test-scss/recursive/')
+        ]
+      }))
+      .on('data', (file) => {
+        const contents = file.contents.toString('utf-8').trim();
+        expect(contents).to.equal(expectedResult.trim());
+      })
+      .on('end', done);
   });
   it('(scss) should use includePaths priority, first relative file and position in includePath', (done) => {
     const expectedResult = [
@@ -205,18 +205,18 @@ describe('gulp-sass-glob', () => {
     ].join('\n');
 
     vinyl
-            .src(path.join(__dirname, '/test-scss/option-includePaths-priority.scss'))
-            .pipe(sassGlob({
-              includePaths: [
-                path.join(__dirname, '/test-scss/recursive/'),
-                path.join(__dirname, '/test-scss/includePaths/')
-              ]
-            }))
-            .on('data', (file) => {
-              const contents = file.contents.toString('utf-8').trim();
-              expect(contents).to.equal(expectedResult.trim());
-            })
-            .on('end', done);
+      .src(path.join(__dirname, '/test-scss/option-includePaths-priority.scss'))
+      .pipe(sassGlob({
+        includePaths: [
+          path.join(__dirname, '/test-scss/recursive/'),
+          path.join(__dirname, '/test-scss/includePaths/')
+        ]
+      }))
+      .on('data', (file) => {
+        const contents = file.contents.toString('utf-8').trim();
+        expect(contents).to.equal(expectedResult.trim());
+      })
+      .on('end', done);
   });
 
   it('(scss) Issue #28', (done) => {
@@ -246,12 +246,12 @@ describe('gulp-sass-glob', () => {
     ].join('\n');
 
     vinyl
-            .src(path.join(__dirname, '/test-scss/issue_28.scss'))
-            .pipe(sassGlob())
-            .on('data', (file) => {
-              const contents = file.contents.toString('utf-8').trim();
-              expect(contents).to.equal(expectedResult.trim());
-            })
-            .on('end', done);
+      .src(path.join(__dirname, '/test-scss/issue_28.scss'))
+      .pipe(sassGlob())
+      .on('data', (file) => {
+        const contents = file.contents.toString('utf-8').trim();
+        expect(contents).to.equal(expectedResult.trim());
+      })
+      .on('end', done);
   });
 });
