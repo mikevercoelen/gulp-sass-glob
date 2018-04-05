@@ -100,7 +100,6 @@ Problem solved.
 - [Nirazul](https://github.com/Nirazul) for reporting the comment glob bug
 - [CREEATION](https://github.com/CREEATION) for submitting a regex for comment globs
 
-
 # Contribute
 
 ## Run tests
