@@ -120,7 +120,9 @@ function transform(file, env, callback) {
 
         var replaceString = imports.join('\n');
         contents = contents.replace(importRule, replaceString);
-        file.contents = new Buffer(contents);
+
+        // eslint-disable-next-line new-cap
+        file.contents = new Buffer.from(contents);
       })();
     }
   }
@@ -131,4 +133,4 @@ function transform(file, env, callback) {
 function isSassOrScss(filename) {
   return !_fs2.default.statSync(filename).isDirectory() && _path2.default.extname(filename).match(/\.sass|\.scss/i);
 }
-module.exports = exports['default'];
+module.exports = exports.default;
