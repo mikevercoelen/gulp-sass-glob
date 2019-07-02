@@ -4,7 +4,6 @@ import through from 'through2';
 import glob from 'glob';
 import slash from 'slash';
 import minimatch from 'minimatch';
-import { Buffer } from 'safe-buffer';
 
 const IMPORT_RE = /^([ \t]*(?:\/\*.*)?)@import\s+["']([^"']+\*[^"']*(?:\.scss|\.sass)?)["'];?([ \t]*(?:\/[/*].*)?)$/gm;
 
@@ -76,7 +75,9 @@ function transform (file, env, callback, options = {}) {
 
       const replaceString = imports.join('\n');
       contents = contents.replace(importRule, replaceString);
-      file.contents = new Buffer(contents);
+
+      // eslint-disable-next-line new-cap
+      file.contents = new Buffer.from(contents);
     }
   }
 
