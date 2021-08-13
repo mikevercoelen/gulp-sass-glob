@@ -105,7 +105,9 @@ function transform(file, env, callback) {
               return (0, _minimatch2.default)(filename, ignorePath);
             })) {
               // remove parent base path
-              imports.push('@import "' + (0, _slash2.default)(filename) + '"' + (isSass ? '' : ';'));
+              var prefix = options.sassModules ? '@use': '@import',
+                suffix = options.sassModules ? ' as *': ''; 
+              imports.push(prefix+' "' + (0, _slash2.default)(filename) + '"' + suffix + (isSass ? '' : ';'));
             }
           }
         });

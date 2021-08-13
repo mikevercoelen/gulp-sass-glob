@@ -60,7 +60,9 @@ function transform (file, env, callback, options = {}) {
             return minimatch(filename, ignorePath);
           })) {
             // remove parent base path
-            imports.push('@import "' + slash(filename) + '"' + (isSass ? '' : ';'));
+            var prefix = options.sassModules ? '@use': '@import',
+              suffix = options.sassModules ? ' as *': ''; 
+            imports.push(prefix+' "' + (0, _slash2.default)(filename) + '"' + suffix + (isSass ? '' : ';'));
           }
         }
       });
