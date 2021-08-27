@@ -36,7 +36,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-var IMPORT_RE = /^([ \t]*(?:\/\*.*)?)@import\s+["']([^"']+\*[^"']*(?:\.scss|\.sass)?)["'];?([ \t]*(?:\/[/*].*)?)$/gm;
+var IMPORT_RE = /^([ \t]*(?:\/\*.*)?)@use\s+["']([^"']+\*[^"']*(?:\.scss|\.sass)?)["'];?([ \t]*(?:\/[/*].*)?)$/gm;
 
 function gulpSassGlob() {
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -105,7 +105,7 @@ function transform(file, env, callback) {
               return (0, _minimatch2.default)(filename, ignorePath);
             })) {
               // remove parent base path
-              imports.push('@import "' + (0, _slash2.default)(filename) + '"' + (isSass ? '' : ';'));
+              imports.push('@use "' + (0, _slash2.default)(filename) + '" as *' + (isSass ? '' : ';'));
             }
           }
         });

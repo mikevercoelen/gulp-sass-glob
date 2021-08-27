@@ -5,7 +5,7 @@ import glob from 'glob';
 import slash from 'slash';
 import minimatch from 'minimatch';
 
-const IMPORT_RE = /^([ \t]*(?:\/\*.*)?)@import\s+["']([^"']+\*[^"']*(?:\.scss|\.sass)?)["'];?([ \t]*(?:\/[/*].*)?)$/gm;
+const IMPORT_RE = /^([ \t]*(?:\/\*.*)?)@use\s+["']([^"']+\*[^"']*(?:\.scss|\.sass)?)["'];?([ \t]*(?:\/[/*].*)?)$/gm;
 
 export default function gulpSassGlob (options = {}) {
   return through.obj((...args) => {
@@ -60,7 +60,7 @@ function transform (file, env, callback, options = {}) {
             return minimatch(filename, ignorePath);
           })) {
             // remove parent base path
-            imports.push('@import "' + slash(filename) + '"' + (isSass ? '' : ';'));
+            imports.push('@use "' + (0, _slash2.default)(filename) + '" as *' + (isSass ? '' : ';'));
           }
         }
       });
